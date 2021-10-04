@@ -32,16 +32,6 @@ class Cnum {
 
         return new Cnum(newA, newB);
     }
-
-    pow(exponent) { // Slowwwwwwwwwwwwwwww........
-        let sum = this;
-
-        for (let index = 0; index < exponent; index++) {
-            sum = sum.mul(this);
-        }
-
-        return sum;
-    }
 }
 
 function f(x) { 
