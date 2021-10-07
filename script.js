@@ -34,12 +34,12 @@ class Cnum {
     }
 }
 
-function f(x) { // f(x) = x^2 - 4
-    return x.mul(x).sub(new Cnum(4, 0)); 
+function f(x) { // f(x) = x^3 - 1
+    return x.mul(x).mul(x).sub(new Cnum(1, 0)); 
 }
 
-function fPrime(x) { // f'(x) = 2x
-    return new Cnum(2, 0).mul(x); 
+function fPrime(x) { // f'(x) = 2x^2
+    return new Cnum(2, 0).mul(x).mul(x); 
 }
 
 function newtonsMethod(x) { 
@@ -62,7 +62,7 @@ for (let x = -centerX; x < centerX; x++) { // real
         let x1 = newtonsMethod(zero);
         let iterations = 0;
 
-        while (Math.sqrt(x1.real ^ 2 + zero.real ^ 2 + x1.imaginary ^ 2 + zero.imaginary ^ 2) > error && iterations < maxIterations) {
+        while (Math.abs(x1.real - zero.real) > error && iterations < maxIterations) {
             zero = x1;
             x1 = newtonsMethod(x1);
             iterations++;
