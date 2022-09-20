@@ -1,5 +1,3 @@
-console.log("e996abdb-5ea3-4692-b359-975d2dbd19af");
-
 class Cnum {
     constructor(real, imaginary) {
         this.real = real;
@@ -48,20 +46,23 @@ function newtonsMethod(x) {
     return x.sub(f(x).div(fPrime(x))); // Xn+1 = Xn-f(Xn)/f'(Xn)
 }
 
-let canvas = document.getElementsByTagName("canvas")[0];
-let context = canvas.getContext("2d");
-let width = window.innerWidth, height = window.innerHeight;
-let centerX = width / 2, centerY = height / 2;
-let scale = 250;
-let error = 1e-2;
-let maxIterations = 100;
-canvas.width = width, canvas.height = height;
+let canvas = document.querySelector('canvas');
+let context = canvas.getContext('2d');
+
+const width = canvas.width = window.innerWidth;
+const height = canvas.height = window.innerHeight;
+const centerX = width / 2, centerY = height / 2;
+const scale = 250;
+const error = 1e-2;
+const maxIterations = 100;
 
 for (let x = -centerX; x < centerX; x++) { // real
     for (let y = -centerY; y < centerY; y++) { // imagainary
-        let scaled = new Cnum(x / scale, y / scale); // initial guess -Cx - Cxi
+        const scaled = new Cnum(x / scale, y / scale); // initial guess -Cx - Cxi
+        
         let zero = newtonsMethod(scaled);
         let x1 = newtonsMethod(zero);
+        
         let iterations = 0;
 
         while (Math.abs(x1.real - zero.real) > error && iterations < maxIterations) {
@@ -70,13 +71,11 @@ for (let x = -centerX; x < centerX; x++) { // real
             iterations++;
         }
 
-        let alpha = iterations / 20;
-        context.fillStyle = "rgba(121, 38, 255, " + alpha + ")";
-
-        if (zero.real > 1) {
-            context.fillStyle = "rgba(255, 38, 89, " + alpha + ")";
-        }
-
+        const alpha = iterations / 20;
+        
+        context.fillStyle = zero.real > 1 ? 
+            `rgba(255, 38, 89, ${alpha})` : 
+            `rgba(121, 38, 255, ${alpha})`;
         context.fillRect(x + centerX, y + centerY, 1, 1); // centered point
     }
 }
